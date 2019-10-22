@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using TestAuth2Mvc.Identity;
+
+@inject LdapSignInManager SignInManager;
+@inject LdapUserManager UserManager;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +31,7 @@
                         </li>
                     </ul>
                 </div>
+                @await Html.PartialAsync("_SigninPartial")
             </div>
         </nav>
     </header>

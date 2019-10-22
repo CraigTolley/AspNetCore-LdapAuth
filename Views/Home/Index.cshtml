@@ -1,4 +1,9 @@
-﻿@{
+﻿@using TestAuth2Mvc.Identity;
+@inject LdapSignInManager SignInManager ;
+@inject LdapUserManager UserManager;
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +11,18 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<hr />
+@if (this.SignInManager.IsSignedIn(User))
+{
+<p>
+    You are signed in, go to <a asp-area="" asp-controller="Manage" asp-action="Index">Manage</a>.
+    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Signout</button>
+</p>
+}
+else
+{
+    <p>
+        <a asp-area="" asp-controller="Account" asp-action="Signin">Sign in</a> to continue...
+    </p>
+}

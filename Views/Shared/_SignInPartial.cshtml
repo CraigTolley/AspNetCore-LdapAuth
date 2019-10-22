@@ -1,0 +1,20 @@
+@using TestAuth2Mvc.Identity
+
+@inject LdapSignInManager SignInManager
+@inject LdapUserManager UserManager
+
+@if (this.SignInManager.IsSignedIn(User))
+{
+    <form class="form-inline my-2 my-lg-0" asp-area="" asp-controller="Account" asp-action="Signout" method="post">
+        <span class="navbar-text mr-sm-2">Hello @this.UserManager.GetUserName(User)!</span>
+        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Signout</button>
+    </form>
+}
+else
+{
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Signin">Sign in</a>
+        </li>
+    </ul>
+}
