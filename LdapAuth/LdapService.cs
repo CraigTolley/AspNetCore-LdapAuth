@@ -303,6 +303,7 @@ namespace TestAuth2Mvc.Services
                 ObjectClass = attributeSet.getAttribute("objectClass")?.StringValue,
                 IsDomainAdmin = attributeSet.getAttribute("memberOf") != null && attributeSet.getAttribute("memberOf").StringValueArray.Contains("CN=Domain Admins," + this._ldapSettings.SearchBase),
                 MemberOf = attributeSet.getAttribute("memberOf")?.StringValueArray,
+                MemberOfNameOnly = attributeSet.getAttribute("memberOf")?.StringValueArray.Select(x => x.Split(",").First().Replace("CN=","")).ToArray(),
                 CommonName = attributeSet.getAttribute("cn")?.StringValue,
                 UserName = attributeSet.getAttribute("name")?.StringValue,
                 SamAccountName = attributeSet.getAttribute("sAMAccountName")?.StringValue,

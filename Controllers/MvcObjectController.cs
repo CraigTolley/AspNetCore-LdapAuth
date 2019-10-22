@@ -26,7 +26,7 @@ namespace TestAuth2Mvc.Controllers
         }
 
         // GET: MvcObject/Details/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Domain Admins")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

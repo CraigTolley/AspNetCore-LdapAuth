@@ -58,9 +58,7 @@ namespace TestAuth2Mvc.Identity
         }
 
         public override Task<IList<string>> GetRolesAsync(LdapUser user) {
-            var x = new List<string>();
-            x.Add("Administrator");
-            return Task.FromResult<IList<string>>(x.ToList());
+            return Task.FromResult<IList<string>>(user.MemberOfNameOnly.ToList());
         }
         public override Task<bool> HasPasswordAsync(LdapUser user)
         {

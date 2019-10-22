@@ -43,7 +43,9 @@ namespace TestAuth2Mvc.Identity.Models
 
         [NotMapped]
         public string[] MemberOf { get; set; }
-        
+        [NotMapped]
+        public string[] MemberOfNameOnly { get; set; }
+     
         [NotMapped]
         public bool IsDomainAdmin { get; set; }
 
