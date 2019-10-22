@@ -152,7 +152,7 @@ namespace TestAuth2Mvc.Services
         {
             LdapUser user = null;
 
-            var filter = $"(&(objectClass=user)(name={userName}))";
+            var filter = $"(&(objectClass=user)({this._ldapSettings.SearchProperty}={userName}))";
 
             using (var ldapConnection = this.GetConnection())
             {
@@ -268,7 +268,7 @@ namespace TestAuth2Mvc.Services
 
         public bool Authenticate(string distinguishedName, string password)
         {
-            using (var ldapConnection = new LdapConnection() { SecureSocketLayer = true })
+            using (var ldapConnection = new LdapConnection() { SecureSocketLayer = this._ldapSettings.UseSSL })
             {
                 ldapConnection.Connect(this._ldapSettings.ServerName, this._ldapSettings.ServerPort);
 

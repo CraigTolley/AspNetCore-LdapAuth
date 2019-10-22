@@ -20,6 +20,7 @@ namespace TestAuth2Mvc.Settings
         public string ContainerName { get; set; }
 
         public string DomainName { get; set; }
+        public string SearchProperty {get; set;}
 
         public string DomainDistinguishedName { get; set; }
 
