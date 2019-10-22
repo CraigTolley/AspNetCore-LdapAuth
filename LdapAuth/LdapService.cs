@@ -327,7 +327,6 @@ namespace TestAuth2Mvc.Services
 
                 SamAccountType = int.Parse(attributeSet.getAttribute("sAMAccountType")?.StringValue ?? "0"),
             };
-
             return ldapUser;
         }
 

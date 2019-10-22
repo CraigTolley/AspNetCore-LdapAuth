@@ -44,8 +44,7 @@ namespace TestAuth2Mvc
             services.AddIdentity<LdapUser, IdentityRole>()
                 .AddEntityFrameworkStores<LdapDbContext>()
                 .AddUserManager<LdapUserManager>()
-                .AddSignInManager<LdapSignInManager>()
-                .AddRoles<IdentityRole>()        
+                .AddSignInManager<LdapSignInManager>()  
                 .AddDefaultTokenProviders();
 
 services
