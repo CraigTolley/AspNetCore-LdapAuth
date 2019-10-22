@@ -45,7 +45,7 @@ namespace TestAuth2Mvc
 services
                 .ConfigureApplicationCookie(options =>
                 {
-                    options.Cookie.Name = "brechtbaekelandt.ldap.identity";
+                    options.Cookie.Name = "TestAuth2Mvc";
                     options.Cookie.HttpOnly = true;
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                     options.LoginPath = "/Account/Signin"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
