@@ -57,6 +57,11 @@ namespace TestAuth2Mvc.Identity
             return this._ldapService.Authenticate(user.DistinguishedName, password);
         }
 
+        public override Task<IList<string>> GetRolesAsync(LdapUser user) {
+            var x = new List<string>();
+            x.Add("Administrator");
+            return Task.FromResult<IList<string>>(x.ToList());
+        }
         public override Task<bool> HasPasswordAsync(LdapUser user)
         {
             return Task.FromResult(true);
