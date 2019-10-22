@@ -71,35 +71,7 @@ namespace TestAuth2Mvc.Identity
         {
             return Task.FromResult(this._ldapService.GetUserByUserName(userName));
         }
-        
-        public override async Task<IdentityResult> CreateAsync(LdapUser user, string password)
-        {          
-            try
-            {
-                this._ldapService.AddUser(user, password);
-            }
-            catch (Exception e)
-            {
-                return await Task.FromResult(IdentityResult.Failed(new IdentityError() { Code = "LdapUserCreateFailed", Description = e.Message ?? "The user could not be created." }));
-            }
-
-            return await Task.FromResult(IdentityResult.Success);
-        }
-
-        public async Task<IdentityResult> DeleteUserAsync(string distinguishedName)
-        {
-            try
-            {
-                this._ldapService.DeleteUser(distinguishedName);
-            }
-            catch (Exception e)
-            {
-                return await Task.FromResult(IdentityResult.Failed(new IdentityError() { Code = "LdapUserDeleteFailed", Description = e.Message ?? "The user could not be deleted." }));
-            }
-
-            return await Task.FromResult(IdentityResult.Success);
-        }
-        
+                
         public override Task<string> GetEmailAsync(LdapUser user)
         {
             return base.GetEmailAsync(user);

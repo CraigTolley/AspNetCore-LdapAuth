@@ -18,11 +18,6 @@ namespace TestAuth2Mvc.Services
         LdapUser GetAdministrator();
 
         LdapUser GetUserByUserName(string userName);
-
-        void AddUser(LdapUser user, string password);
-
-        void DeleteUser(string distinguishedName);
-
         bool Authenticate(string distinguishedName, string password);
     }
 }
