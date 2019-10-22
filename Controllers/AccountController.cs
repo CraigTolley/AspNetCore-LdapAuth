@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TestAuth2Mvc.Services;
 using TestAuth2Mvc.Identity;
 
 using TestAuth2Mvc.ViewModels;
@@ -13,6 +12,7 @@ using TestAuth2Mvc.ViewModels;
 namespace TestAuth2Mvc.Controllers
 {
     [Route("[controller]/[action]")]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly LdapUserManager _userManager;

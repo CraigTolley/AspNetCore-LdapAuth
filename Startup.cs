@@ -17,7 +17,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TestAuth2Mvc
 {
@@ -40,7 +41,12 @@ namespace TestAuth2Mvc
                     Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddIdentity<LdapUser, IdentityRole>().AddEntityFrameworkStores<LdapDbContext>().AddUserManager<LdapUserManager>().AddSignInManager<LdapSignInManager>().AddDefaultTokenProviders();
+            services.AddIdentity<LdapUser, IdentityRole>()
+                .AddEntityFrameworkStores<LdapDbContext>()
+                .AddUserManager<LdapUserManager>()
+                .AddSignInManager<LdapSignInManager>()
+                .AddRoles<IdentityRole>()        
+                .AddDefaultTokenProviders();
 
 services
                 .ConfigureApplicationCookie(options =>
@@ -58,8 +64,18 @@ services
             // Add application services.
             services.AddTransient<ILdapService, LdapService>();
 
+            services.AddControllersWithViews(config => {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }
 
-            services.AddControllersWithViews();
+            );
+
+            services.AddDbContext<TestMvcContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString("TestMvcContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
