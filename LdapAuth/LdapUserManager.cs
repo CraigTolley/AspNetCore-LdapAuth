@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -52,16 +53,23 @@ namespace TestAuth2Mvc.Identity
         /// <param name="user"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public override async Task<bool> CheckPasswordAsync(LdapUser user, string password)
-        {
-            return this._ldapService.Authenticate(user.DistinguishedName, password);
+        public override async Task<bool> CheckPasswordAsync(LdapUser user, string password) {
+            return  this._ldapService.Authenticate(user.DistinguishedName, password);
         }
 
         public override Task<IList<string>> GetRolesAsync(LdapUser user) {
             return Task.FromResult<IList<string>>(user.MemberOfNameOnly.ToList());
         }
-        public override Task<bool> HasPasswordAsync(LdapUser user)
-        {
+
+        public override Task<IList<Claim>> GetClaimsAsync(LdapUser user) {
+            var userClaims = new List<Claim>();
+
+            // In testing, going much above 30 claims seems to cause the login to hang. 
+            user.MemberOfNameOnly.ToList().Take(25).ToList().ForEach(g => userClaims.Add(new Claim("AdGroup",g)));
+            return Task.FromResult<IList<Claim>>(userClaims.ToList());
+        }
+
+        public override Task<bool> HasPasswordAsync(LdapUser user) {
             return Task.FromResult(true);
         }
 

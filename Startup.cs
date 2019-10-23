@@ -63,6 +63,11 @@ services
             // Add application services.
             services.AddTransient<ILdapService, LdapService>();
 
+            services.AddAuthorization(options => {
+                    options.AddPolicy("AdGroup-DomainAdmins", policy =>
+                                    policy.RequireClaim("AdGroup", "Domain Admins"));
+                });
+
             services.AddControllersWithViews(config => {
                 var policy = new AuthorizationPolicyBuilder()
                                 .RequireAuthenticatedUser()

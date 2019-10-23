@@ -45,6 +45,7 @@ namespace TestAuth2Mvc.Controllers
         }
 
         // GET: MvcObject/Create
+        [Authorize(Policy = "AdGroup-DomainAdmins")]
         public IActionResult Create()
         {
             return View();
